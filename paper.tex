@@ -194,7 +194,7 @@ Which can be simplified to:
 \begin{align*}
     c &= \frac{1}{2}(-f_c - f_b  + i_c + i_b))\\
     b &= \frac{1}{2}(-f_c - 3f_b + i_c + i_b))\\
-    c + b &= (-f_c - 4f_b + i_c + 2i_b)
+    c + b &= (-f_c - 2f_b + i_c + 2i_b)
 \end{align*}
 Using the typical optimization with derivatives isn't going to help us here, because the function is linear with respect to both $f_c$ and $f_b$.
 Instead we can use the constraint that $c$, $b$, and $c + b$ must be natural numbers (in my definition, the natural numbers include 0).
@@ -207,6 +207,7 @@ Since $i_b = i_c$, $i_b + i_c \in 2\mathbb{N}$
     -f_c - f_b &\in 2\mathbb{Z}\\
     f_c + f_b &\in 2\mathbb{N}
 \end{align*}
+Thus, we can say that $f_c$ and $f_b$ have the same parity.
 \section{Using the final state of the vector to deduce the amount of drinks drunk}
 \par Since two empty bottles can get you a drink and a drink is worth \$2, then that means one bottle is worth \$1.
 Similarly since four bottle caps can get you a drink and a drink is worth \$2, then that means bottle cap is worth \$0.5.

@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{pgfplots}
 \usepackage{listings}
+\usepackage{graphicx}
 \pgfplotsset{width=15cm,compat=1.9} \newcommand{\todo}[1]{{\emph{\color{red}#1}}}
 \title{WIP: The Optimization of Alcoholism under a Hypothetical Bartering System}
 \author{Kevin Palani and Kevin Zheng}
@@ -122,7 +123,11 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
 \end{center}
 \section{Proof of the final state of the vector}
 \subsection{Algorithm}
-\lstinputlisting[language=python]{finalstate.py}
+\lstinputlisting[language=python]{./python/finalstate1.py}
+\begin{center}
+    \includegraphics[width=0.49\textwidth]{./python/bots1.png}
+    \includegraphics[width=0.49\textwidth]{./python/caps1.png}
+\end{center}
 \subsection{Linear algebra}
 The final state can be represented as the following:
 \begin{align*}

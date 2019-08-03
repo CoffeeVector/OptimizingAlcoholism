@@ -4,6 +4,9 @@
 \usepackage{pgfplots}
 \usepackage{listings}
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
 \pgfplotsset{width=15cm,compat=1.9} \newcommand{\todo}[1]{{\emph{\color{red}#1}}}
 \title{WIP: The Optimization of Alcoholism under a Hypothetical Bartering System}
 \author{Kevin Palani and Kevin Zheng}
@@ -121,15 +124,15 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
         \end{axis}
     \end{tikzpicture}
 \end{center}
-\section{Computing the final state of bartering}
-\subsection{Algorithm}
-\lstinputlisting[language=python]{./python/finalstate1.py}
-\begin{center}
-    \includegraphics[width=0.49\textwidth]{./python/bots1.png}
-    \includegraphics[width=0.49\textwidth]{./python/caps1.png}
-\end{center}
-From this it makes sense that you'd never end up with a bottle since having one left would always allow you to get another one (boohoo, special case).
-The repeating structure of the bottle caps, while not what you may initially think, is not too hard to figure out.
+%\section{Computing the final state of bartering}
+%\subsection{Algorithm}
+%\lstinputlisting[language=python]{./python/finalstate1.py}
+%\begin{center}
+%    \includegraphics[width=0.49\textwidth]{./python/bots1.png}
+%    \includegraphics[width=0.49\textwidth]{./python/caps1.png}
+%\end{center}
+%From this it makes sense that you'd never end up with a bottle since having one left would always allow you to get another one (boohoo, special case).
+%The repeating structure of the bottle caps, while not what you may initially think, is not too hard to figure out.
 \subsection{Algebraic Solution}
 Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the cap-based transactions, and $b$ be the bottle-based transaction.
 \begin{align*}
@@ -181,11 +184,29 @@ Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the cap
     (\vec{f} - \vec{i})\\
 \end{align*}
 The goal is to get as drunk as possible, which is reaching as many transactions as possible, thus we want to maximize $b + c$ with respect to the elements of $f$.
+The above matrix equation can be represented as the following set of equations.
 \begin{align*}
+    c &= \frac{1}{2}(-(f_c - i_c) - (f_b - i_b))\\
+    b &= \frac{1}{2}(-(f_c - i_c) - 3(f_b - i_b))\\
     c + b &= \frac{1}{2}(-2(f_c - i_c) - 4(f_b - i_b))
-    %\frac{\partial(c + b)}{\partial f_c \partial f_b} &= \frac{1}{2}(-2(f_c - i_c) - 4(f_b - i_b))
 \end{align*}
-Since there's not that many possible combinations of $\vec{f}$, it would be practical in this case to simply check for the maximum, but that's no fun.
+Which can be simplified to:
+\begin{align*}
+    c &= \frac{1}{2}(-f_c - f_b  + i_c + i_b))\\
+    b &= \frac{1}{2}(-f_c - 3f_b + i_c + i_b))\\
+    c + b &= (-f_c - 4f_b + i_c + 2i_b)
+\end{align*}
+Using the typical optimization with derivatives isn't going to help us here, because the function is linear with respect to both $f_c$ and $f_b$.
+Instead we can use the constraint that $c$, $b$, and $c + b$ must be natural numbers (in my definition, the natural numbers include 0).
+\begin{align*}
+    c &\in \mathbb{N} \\
+    -f_c - f_b + i_b + i_c &\in 2\mathbb{N}
+\end{align*}
+Since $i_b = i_c$, $i_b + i_c \in 2\mathbb{N}$
+\begin{align*}
+    -f_c - f_b &\in 2\mathbb{Z}\\
+    f_c + f_b &\in 2\mathbb{N}
+\end{align*}
 \section{Using the final state of the vector to deduce the amount of drinks drunk}
 \par Since two empty bottles can get you a drink and a drink is worth \$2, then that means one bottle is worth \$1.
 Similarly since four bottle caps can get you a drink and a drink is worth \$2, then that means bottle cap is worth \$0.5.

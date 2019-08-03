@@ -4,7 +4,7 @@
 \usepackage{pgfplots}
 \usepackage{listings}
 \pgfplotsset{width=15cm,compat=1.9} \newcommand{\todo}[1]{{\emph{\color{red}#1}}}
-\title{The Optimization of Alcoholism under a Hypothetical Bartering System}
+\title{WIP: The Optimization of Alcoholism under a Hypothetical Bartering System}
 \author{Kevin Palani and Kevin Zheng}
 \begin{document}
 \maketitle
@@ -14,112 +14,111 @@
 Very quickly you can see that if you spend all 10\$, you will get 5 beers.
 Once you've drunken the 5 beers, you are left with 5 beer bottles and 5 caps.
 The store owner strikes you a deal.
-If you give him two bottles, he'll give you a new fresh bottle of beer.
-You can give him four bottle caps and he'll also give you a new fresh bottle of beer.
-He is also kind enough to let your drink before you pay.
-You are interested in how many drinks you can get.
+If you give him two empty bottles or four bottle caps, he'll give you a new bottle of beer.
+He is also kind enough to let you drink before you pay.
+How many drinks you can get?
 \section{Modeling amount of caps and bottles}
 \subsection{Vector representation of caps and bottles}
 \[
-	\begin{bmatrix}
-		a\\
-		b\\
-		1\\
-	\end{bmatrix}
+    \begin{bmatrix}
+        a\\
+        b\\
+        1\\
+    \end{bmatrix}
 \]
 \par Will be the vector that represents the bottles and caps such that $a$ is the amount of bottles, and $b$ is the amount of caps.
-$1$ is the homogenization of the vector.
+The $1$ is a homogenization of the vector.
 \subsection{Matrix representation of the bartering system}
 \par If we can spend two empty bottles and receive a full drink, that is equivalent to spending two bottles and getting one bottle and one cap.
 We will represent this operation as the following translational matrix.
 \[
-	B=
-	\begin{bmatrix}
-		1 && 0 && -2 + 1\\
-		0 && 1 &&  1\\
-		0 && 0 &&  1\\
-	\end{bmatrix}
+    B=
+    \begin{bmatrix}
+        1 && 0 && -2 + 1\\
+        0 && 1 &&  1\\
+        0 && 0 &&  1\\
+    \end{bmatrix}
 \]
-\par And since we can drink before we pay, having merely one empty bottle is enough to drink.
+\par And since we can drink before we pay, having only one empty bottle is enough to drink.
 \[
-	B=
-	\begin{bmatrix}
-		1 && 0 && -1\\
-		0 && 1 &&  1\\
-		0 && 0 &&  1\\
-	\end{bmatrix}
+    B=
+    \begin{bmatrix}
+        1 && 0 && -1\\
+        0 && 1 &&  1\\
+        0 && 0 &&  1\\
+    \end{bmatrix}
 \]
 \par The purchasing of a full drink using 4 caps can be similarly represented as a translational matrix.
 \[
-	C=
-	\begin{bmatrix}
-		1 && 0 &&  1\\
-		0 && 1 && -4 + 1\\
-		0 && 0 &&  1\\
-	\end{bmatrix}
+    C=
+    \begin{bmatrix}
+        1 && 0 &&  1\\
+        0 && 1 && -4 + 1\\
+        0 && 0 &&  1\\
+    \end{bmatrix}
 \]
 \par Which can simply be evaluated to.
 \[
-	C=
-	\begin{bmatrix}
-		1 && 0 &&  1\\
-		0 && 1 && -3\\
-		0 && 0 &&  1\\
-	\end{bmatrix}
+    C=
+    \begin{bmatrix}
+        1 && 0 &&  1\\
+        0 && 1 && -3\\
+        0 && 0 &&  1\\
+    \end{bmatrix}
 \]
 \par These two operations can be represented geometrically as a translation of a point on a 2 dimensional Cartesian plane.
 For example, if we start with 5 empty bottles and 5 empty caps, we can trace the motion of the point as following.
 \begin{center}
-	\begin{tikzpicture}
-		\begin{axis}[
-				axis lines = left,
-			xlabel = Bottles,
-			ylabel = {Caps},
-			xmin = 0, xmax = 10,
-			ymin = 0, ymax = 10
-			]
-			\addplot [
-				domain=0:5,
-			samples=100,
-			color=blue,
-			]
-			{-1 * (x - 5) + 5};
-			\addlegendentry{Trading empty bottles for drinks}
-			\addplot [
-				domain=0:3,
-			samples=100,
-			color=red,
-			]
-			{-3 * x + 10};
-			\addlegendentry{Trading caps for drinks}
-			\addplot [
-				domain=0:3,
-			samples=100,
-			color=blue,
-			]
-			{-1 * (x - 3) + 1};
-			\addplot [
-				domain=0:1,
-			samples=100,
-			color=red,
-			]
-			{-3 * x + 4};
-			\addplot [
-				domain=0:1,
-			samples=100,
-			color=blue,
-			]
-			{-1 * (x - 1) + 1};
-			\addplot[
-				color=blue,
-			only marks,
-			mark=square,
-					]
-			coordinates {
-				(0,2)(5,5)
-			};
-		\end{axis}
-	\end{tikzpicture}
+    \begin{tikzpicture}
+        \begin{axis}[
+                axis lines = left,
+            xlabel = Bottles,
+            ylabel = {Caps},
+            xmin = 0, xmax = 10,
+            ymin = 0, ymax = 10
+            ]
+            \addplot [
+                domain=0:5,
+            samples=100,
+            color=blue,
+            ]
+            {-1 * (x - 5) + 5};
+            \addlegendentry{Trading empty bottles for drinks}
+            \addplot [
+                domain=0:3,
+            samples=100,
+            color=red,
+            ]
+            {-3 * x + 10};
+            \addlegendentry{Trading caps for drinks}
+            \addplot [
+                domain=0:3,
+            samples=100,
+            color=blue,
+            ]
+            {-1 * (x - 3) + 1};
+            \addplot [
+                domain=0:1,
+            samples=100,
+            color=red,
+            ]
+            {-3 * x + 4};
+            \addplot [
+                domain=0:1,
+            samples=100,
+            color=blue,
+            ]
+            {-1 * (x - 1) + 1};
+            \addplot[
+                color=blue,
+            only marks,
+            mark=square,
+                    ]
+            coordinates {
+                (0,2)(5,5)
+            };
+        \end{axis}
+    \end{tikzpicture}
 \end{center}
 \section{Proof of the final state of the vector}
 \subsection{Algorithm}
@@ -128,23 +127,23 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
 The final state can be represented as the following:
 \begin{align*}
 \begin{bmatrix}
-	5\\
-	5
+    5\\
+    5
 \end{bmatrix}
 + c
 \begin{bmatrix}
-	-3\\
-	1	
+    -3\\
+    1
 \end{bmatrix}
 + b
 \begin{bmatrix}
-	1\\
-	-1	
+    1\\
+    -1
 \end{bmatrix}
- = 
+ =
 \begin{bmatrix}
-	2\\
-	0
+    2\\
+    0
 \end{bmatrix}
 \end{align*}
 Which seems to be some kind of reformulation of modular arithmetic for vectors.
@@ -152,64 +151,64 @@ This can also be thought of as:
 \begin{align*}
 c
 \begin{bmatrix}
-	-3\\
-	1	
+    -3\\
+    1
 \end{bmatrix}
 + b
 \begin{bmatrix}
-	1\\
-	-1	
+    1\\
+    -1
 \end{bmatrix}
 =
 \begin{bmatrix}
-	2\\
-	0
+    2\\
+    0
 \end{bmatrix}
- - 
+ -
 \begin{bmatrix}
-	5\\
-	5
+    5\\
+    5
 \end{bmatrix}
 \end{align*}
 Which simplifies to:
 \begin{align*}
 \begin{bmatrix}
-	-3 & 1\\
-	-1 & 1	
+    -3 & 1\\
+    -1 & 1
 \end{bmatrix}
 \begin{bmatrix}
-	c\\
-	b
+    c\\
+    b
 \end{bmatrix}
 =
 \begin{bmatrix}
-	2\\
-	0
+    2\\
+    0
 \end{bmatrix}
- - 
+ -
 \begin{bmatrix}
-	5\\
-	5
+    5\\
+    5
 \end{bmatrix}
 \\
 \begin{bmatrix}
-	c\\
-	b
+    c\\
+    b
 \end{bmatrix}
 =
 \begin{bmatrix}
-	-\frac{1}{2} & -\frac{1}{2}\\
-	-\frac{1}{2} & -\frac{3}{2}
+    -\frac{1}{2} & -\frac{1}{2}\\
+    -\frac{1}{2} & -\frac{3}{2}
 \end{bmatrix}
 (
 \begin{bmatrix}
-	2\\
-	0
+    2\\
+    0
 \end{bmatrix}
- - 
+ -
 \begin{bmatrix}
-	5\\
-	5
+    5\\
+    5
 \end{bmatrix}
 )
 \end{align*}
@@ -217,24 +216,24 @@ Which simplifies to:
 Which is the largest vector that can be represented as an integer linear combination of the basis vectors that represent the trades.
 \subsection{WIP: Ideas}
 \begin{itemize}
-	\item GCD? The algorithm is quite similar to Euclid's algorithm for greatest common denominator
+    \item GCD? The algorithm is quite similar to Euclid's algorithm for greatest common denominator
 \end{itemize}
 \section{Using the final state of the vector to deduce the amount of drinks one had}
 \par Since two empty bottles can get you a drink and a drink is worth \$2, then that means one bottle is worth \$1.
 Similarly since four bottle caps can get you a drink and a drink is worth \$2, then that means bottle cap is worth \$0.5.
 \par Since a full drink is consisted of one cap, one bottle, and some drink, we can use simple algebra to deduce that:
 \begin{equation}
-	\$2 = d + \$1 + \$0.5
+    \$2 = d + \$1 + \$0.5
 \end{equation}
 \begin{equation}
-	d = \$0.5
+    d = \$0.5
 \end{equation}
 the worth of the drink is \$0.5.
 If we started with \$10 dollars, and we are left with $a$ bottles and $b$ caps, then:
 \begin{equation}
-	\$10 = \$0.5x + \$a + \$0.5b
+    \$10 = \$0.5x + \$a + \$0.5b
 \end{equation}
 \begin{equation}
-	x = \frac{\$10 - \$a - \$0.5b}{\$0.5}
+    x = \frac{\$10 - \$a - \$0.5b}{\$0.5}
 \end{equation}
 \end{document}

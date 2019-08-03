@@ -18,17 +18,19 @@ def final(a, b):
         return final(a, b % bot)
     return (a, b)
 
-finalVectors = [final(i, i) for i in range(30)]
+finalVectors = [final(i, i) for i in range(10)]
 
 caps = [i for i,j in finalVectors]
 bots = [j for i,j in finalVectors]
 
-x = range(30)
+x = range(10)
 
 plt.plot(x, bots, label="Bottles left over")
+plt.xticks(x)
 plt.legend()
 plt.savefig("bots1.png")
 plt.clf()
 plt.plot(x, caps, label="Caps left over")
+plt.xticks(x)
 plt.legend()
-plt.savefig("caps2.png")
+plt.savefig("caps1.png")

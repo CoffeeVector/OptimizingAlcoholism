@@ -117,24 +117,17 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
     \end{tikzpicture}
 \end{center}
 \section{Analysis of the graph}
-\par We know from the context of the problem, that the final state can only be the following points:
+Since having either 1 bottle, or 3 caps is enough to do another transaction; we know from the context of the problem, that the final state must be one of the following points:
 $$(0, 0)$$
 $$(0, 1)$$
 $$(0, 2)$$
-Because having either 1 bottle, or 3 caps is enough to do another transaction.
-\par Visually, you can already tell that it's impossible to get to the point $(0, 0)$ unless if you have already started there (sorry mate, you gotta buy some beer to play the game).
-\par You can also tell that you cannot get to $(0, 1)$, because that means you came from $(1, 0)$ through a blue line, but that means you came from $(0, 2)$ from a red line, which is impossible because $(0, 2)$ is not enough to continue a transaction.
-\par So already from this graph, you can tell that you will always end up with 2 caps left over (if we ignore the trivial case that you do not buy beer in the first place).
-%\section{Computing the final state of bartering}
-%\subsection{Algorithm}
-%\lstinputlisting[language=python]{./python/finalstate1.py}
-%\begin{center}
-%    \includegraphics[width=0.49\textwidth]{./python/bots1.png}
-%    \includegraphics[width=0.49\textwidth]{./python/caps1.png}
-%\end{center}
-%From this it makes sense that you'd never end up with a bottle since having one left would always allow you to get another one (boohoo, special case).
-%The repeating structure of the bottle caps, while not what you may initially think, is not too hard to figure out.
-\subsection{Algebraic Solution}
+
+Visually, you can already tell that it's impossible to get to the point $(0, 0)$ unless if you have already started there (sorry mate, you gotta buy some beer to play the game).
+
+You can also tell that you cannot get to $(0, 1)$, because that means you came from $(1, 0)$ through a blue line, but that means you came from $(0, 2)$ from a red line, which is impossible because $(0, 2)$ is not enough to continue a transaction.
+
+So already from this graph, you can tell that you will always end up with 2 caps left over (if we ignore the trivial case that you do not buy beer in the first place).
+\section{Algebraic Solution}
 Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the cap-based transactions, and $b$ be the bottle-based transaction.
 \begin{align*}
     \vec{i}

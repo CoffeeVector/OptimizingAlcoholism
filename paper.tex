@@ -177,6 +177,76 @@ Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the num
     \end{bmatrix}
     (\vec{f} - \vec{i})\\
 \end{align*}
+Initially we get the same amount of caps and bottles according to how many drinks $i$ that we start with.
+\begin{align*}
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    \frac{1}{2}
+    \begin{bmatrix}
+        -1 &-1\\
+        -1 &-3
+    \end{bmatrix}
+    (\vec{f} - \vec{i})\\
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    (\vec{i} - \vec{f})\\
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    i
+    \begin{bmatrix}
+        1\\
+        1
+    \end{bmatrix}
+    -
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    \vec{f}\\
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    i
+    \begin{bmatrix}
+        1\\
+        2
+    \end{bmatrix}
+    -
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    \vec{f}
+\end{align*}
+{
+    \color{red}
+    TODO
+    If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though that's not possible.
+}
+
 The goal is to get as drunk as possible, which is reaching as many transactions as possible, thus we want to maximize $b + c$ with respect to the elements of $f$.
 The above matrix equation can be represented as the following set of equations.
 \begin{align*}

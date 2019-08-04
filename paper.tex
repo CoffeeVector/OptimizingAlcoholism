@@ -217,21 +217,15 @@ Since $i_b = i_c$, $i_b + i_c \in 2\mathbb{N}$
 \end{align*}
 Thus, we can say that $f_c$ and $f_b$ have the same parity.
 \section{Using the final state of the vector to deduce the amount of drinks drunk}
-\par Since two empty bottles can get you a drink and a drink is worth \$2, then that means one bottle is worth \$1.
-Similarly since four bottle caps can get you a drink and a drink is worth \$2, then that means bottle cap is worth \$0.5.
-\par Since a full drink is consisted of one cap, one bottle, and some drink, we can use simple algebra to deduce that:
-\begin{equation}
-    \$2 = d + \$1 + \$0.5
-\end{equation}
-\begin{equation}
-    d = \$0.5
-\end{equation}
-the worth of the drink is \$0.5.
+\par If we refer back to the naive solution, we concluded that beer itself is \$0.50.
+If we know what we have left over, we can deduce how much of our money was effectively turned into booze.
 If we started with \$10 dollars, and we are left with $a$ bottles and $b$ caps, then:
+$$10 = 0.5x + a + 0.5b$$
+$$x = \frac{10 - a - 0.5b}{0.5}$$
+\begin{center}
+    or 
+\end{center}
 \begin{equation}
-    \$10 = \$0.5x + \$a + \$0.5b
-\end{equation}
-\begin{equation}
-    x = \frac{\$10 - \$a - \$0.5b}{\$0.5}
+x = 20 - 2a - b
 \end{equation}
 \end{document}

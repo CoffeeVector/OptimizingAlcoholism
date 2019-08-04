@@ -22,7 +22,14 @@ If you give him two empty bottles or four bottle caps, he'll give you a new bott
 He is also kind enough to let you drink before you pay.
 How many drinks you can get?
 \section{Naive solution}
+A naive solution would be to consider the worth of the beer itself.
+Since 2 bottles can get a \$2 beer, that means a bottle is worth \$1.
+Since 4 caps can get a \$2 beer, that means a cap is worth \$0.50.
+A beer is consisted of a bottle, a cap, and some drink.
+Therefore the drink itself is worth \$0.50.
+If we start with \$10, we can get 20 drinks.
 
+The problem with this solution is that this assumes that in the end we can successfully convert all of our bottles and caps into booze, but can we?
 \section{Modeling amount of caps and bottles}
 \subsection{Vector representation of caps and bottles}
 \[
@@ -48,7 +55,7 @@ We will represent this operation as the addition of the following vector;
         1\\
     \end{bmatrix}
 \]
-\par Using 4 caps can be represented simliarly
+\par Using 4 caps can be represented similarly
 \[
     \begin{bmatrix}
         1\\

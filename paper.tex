@@ -13,6 +13,9 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\lstset{
+    breaklines=true
+}
 \section{Introduction to the hypothetical bartering system}
 \par You have \$10, and a beer is 2\$.
 Very quickly you can see that if you spend all 10\$, you will get 5 beers.
@@ -241,11 +244,18 @@ Initially we get the same amount of caps and bottles according to how many drink
     \end{bmatrix}
     \vec{f}
 \end{align*}
-{
-    \color{red}
-    TODO
-    If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though that's not possible.
-}
+
+If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though we know from looking at the graph that it's not possible.
+This is because there's always a way to get to $(0, 0)$ if we choose to fall into debt, but since that's against the rules, we have to make a check that there exists a way to reach $\vec{f}$.
+
+If we brute force using a script:
+
+\lstinputlisting[language=python]{python/non-debt-transactions.py}
+
+Then we get the following result where the green dots represents the possible transactions:
+\begin{center}
+    \includegraphics[width=\textwidth]{python/debt.png}
+\end{center}
 
 The goal is to get as drunk as possible, which is reaching as many transactions as possible, thus we want to maximize $b + c$ with respect to the elements of $f$.
 The above matrix equation can be represented as the following set of equations.

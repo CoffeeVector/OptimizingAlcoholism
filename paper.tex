@@ -248,6 +248,24 @@ Initially we get the same amount of caps and bottles according to how many drink
 If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though we know from looking at the graph that it's not possible.
 This is because there's always a way to get to $(0, 0)$ if we choose to fall into debt, but since that's against the rules, we have to make a check that there exists a way to reach $\vec{f}$.
 
+We can describe the validity $v$ of transaction $c$ and $b$ using the following recursive function:
+\begin{align*}
+    v(c, b) &= v(c - 1, b) \times v(c, b - 1) \times \underbrace{(
+        \begin{bmatrix}
+            -3 & 1\\
+            1 & -1\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            c\\
+            b
+        \end{bmatrix}
+        + \vec{i}
+        >
+        \vec{f}
+    )}_\text{1 if this is true, 0 if this is false}\\
+    v(0, 0) &= 1
+\end{align*}
+
 If we brute force using a script:
 
 \lstinputlisting[language=python]{python/non-debt-transactions.py}

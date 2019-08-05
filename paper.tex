@@ -30,6 +30,11 @@ Therefore the drink itself is worth \$0.50.
 If we start with \$10, we can get 20 drinks.
 
 The problem with this solution is that this assumes that in the end we can successfully convert all of our bottles and caps into booze, but can we?
+Short answer is, no.
+The only way to successfully convert all of our bottles and caps into booze is if adding exactly one bottle and one cap to our balance would cover the next drink i.e. drink before you pay and the resulting bottle and cap covers your tab perfectly.
+Which is impossible because there doesn't exist a transaction which takes a bottle and cap at the same time.
+
+Rather, it's still fun to see if we can predict exactly how much we are left with.
 \section{Modeling amount of caps and bottles}
 \subsection{Vector representation of caps and bottles}
 \[
@@ -216,7 +221,7 @@ If we started with \$10 dollars, and we are left with $a$ bottles and $b$ caps, 
 $$10 = 0.5x + a + 0.5b$$
 $$x = \frac{10 - a - 0.5b}{0.5}$$
 \begin{center}
-    or 
+    or
 \end{center}
 \begin{equation}
 x = 20 - 2a - b

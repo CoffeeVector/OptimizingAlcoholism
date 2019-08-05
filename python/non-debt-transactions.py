@@ -25,6 +25,7 @@ while not len(check) == 0:
     tmp = []
 
 plt.scatter([i[0] for i in ok], [i[1] for i in ok], c=(0, 1, 0))
+plt.scatter([5], [10], c=(1, 0, 0))
 plt.xlabel('Bottle-based transactions')
 plt.ylabel('Cap-based transactions')
 plt.xticks([i[0] for i in ok])

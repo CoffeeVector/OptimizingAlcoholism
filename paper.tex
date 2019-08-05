@@ -39,27 +39,25 @@ Which is impossible because there doesn't exist a transaction which takes a bott
 
 Rather, it's still fun to see if we can predict exactly how much we are left with.
 \section{Modeling amount of caps and bottles}
-\subsection{Vector representation of caps and bottles}
+Suppose a vector which represents caps a bottles:
 \[
     \begin{bmatrix}
-        a\\
         b\\
+        c\\
     \end{bmatrix}
 \]
-\par Will be the vector that represents the bottles and caps such that $a$ is the amount of bottles, and $b$ is the amount of caps.
-\subsection{Representation of the bartering system}
 \par If we can spend two empty bottles and receive a full drink, that is equivalent to spending two bottles and getting one bottle and one cap.
 We will represent this operation as the addition of the following vector;
 \[
     \begin{bmatrix}
-       -2 + 1\\
-       1\\
+        -2 + 1\\
+        1\\
     \end{bmatrix}
 \]
 \par And since we can drink before we pay, having only one empty bottle is enough to drink.
 \[
     \begin{bmatrix}
-       -1\\
+        -1\\
         1\\
     \end{bmatrix}
 \]
@@ -69,11 +67,9 @@ We will represent this operation as the addition of the following vector;
         1\\
         -4 + 1\\
     \end{bmatrix}
-\]
-\par Which can simply be evaluated to.
-\[
+    =
     \begin{bmatrix}
-         1\\
+        1\\
         -3\\
     \end{bmatrix}
 \]
@@ -87,47 +83,47 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
             ylabel = {Caps},
             xmin = 0, xmax = 10,
             ymin = 0, ymax = 10
-            ]
-            \addplot [
-                domain=0:5,
+        ]
+        \addplot [
+            domain=0:5,
             samples=100,
             color=blue,
-            ]
-            {-1 * (x - 5) + 5};
-            \addlegendentry{Trading empty bottles for drinks}
-            \addplot [
-                domain=0:3,
+        ]
+        {-1 * (x - 5) + 5};
+        \addlegendentry{Trading empty bottles for drinks}
+        \addplot [
+            domain=0:3,
             samples=100,
             color=red,
-            ]
-            {-3 * x + 10};
-            \addlegendentry{Trading caps for drinks}
-            \addplot [
-                domain=0:3,
+        ]
+        {-3 * x + 10};
+        \addlegendentry{Trading caps for drinks}
+        \addplot [
+            domain=0:3,
             samples=100,
             color=blue,
-            ]
-            {-1 * (x - 3) + 1};
-            \addplot [
-                domain=0:1,
+        ]
+        {-1 * (x - 3) + 1};
+        \addplot [
+            domain=0:1,
             samples=100,
             color=red,
-            ]
-            {-3 * x + 4};
-            \addplot [
-                domain=0:1,
+        ]
+        {-3 * x + 4};
+        \addplot [
+            domain=0:1,
             samples=100,
             color=blue,
-            ]
-            {-1 * (x - 1) + 1};
-            \addplot[
-                color=blue,
+        ]
+        {-1 * (x - 1) + 1};
+        \addplot[
+            color=blue,
             only marks,
             mark=square,
-                    ]
-            coordinates {
-                (0,2)(5,5)
-            };
+        ]
+        coordinates {
+            (0,2)(5,5)
+        };
         \end{axis}
     \end{tikzpicture}
 \end{center}
@@ -296,6 +292,6 @@ $$x = \frac{10 - a - 0.5b}{0.5}$$
     or
 \end{center}
 \begin{equation}
-x = 20 - 2a - b
+    x = 20 - 2a - b
 \end{equation}
 \end{document}

@@ -13,6 +13,9 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\lstset{
+    breaklines=true
+}
 \section{Introduction to the hypothetical bartering system}
 \par You have \$10, and a beer is 2\$.
 Very quickly you can see that if you spend all 10\$, you will get 5 beers.
@@ -241,11 +244,62 @@ Initially we get the same amount of caps and bottles according to how many drink
     \end{bmatrix}
     \vec{f}
 \end{align*}
-{
-    \color{red}
-    TODO
-    If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though that's not possible.
-}
+If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though we know from looking at the graph that it's not possible.
+This is because there's always a way to get to $(0, 0)$ if we choose to fall into debt, but since that's against the rules, we have to make a check that there exists a way to reach $\vec{f}$.
+
+We can describe the validity $v$ of transaction $c$ and $b$ using the following recursive function:
+\begin{align*}
+    v(c, b) &= (v(c - 1, b) + v(c, b - 1)) \times \underbrace{(
+        \begin{bmatrix}
+            -3 & 1\\
+            1 & -1\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            c\\
+            b
+        \end{bmatrix}
+        + \vec{i}
+        >
+        \vec{f}
+    )}_\text{1 if this is true, 0 if this is false}\\
+    v(0, 0) &= 1
+\end{align*}
+Notice above, I use + as OR and $\times$ as AND.
+
+If we brute force using a script:
+
+\lstinputlisting[language=python]{python/non-debt-transactions.py}
+
+Then we get the following result where the green dots represents the possible transactions:
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{python/debt.png}
+\end{center}
+
+The goal is to get as drunk as possible, which is reaching as many transactions as possible, thus we want to maximize $b + c$ with respect to the elements of $f$.
+The above matrix equation can be represented as the following set of equations.
+\begin{align*}
+    c &= \frac{1}{2}(-(f_c - i_c) - (f_b - i_b))\\
+    b &= \frac{1}{2}(-(f_c - i_c) - 3(f_b - i_b))\\
+    c + b &= \frac{1}{2}(-2(f_c - i_c) - 4(f_b - i_b))
+\end{align*}
+Which can be simplified to:
+\begin{align*}
+    c &= \frac{1}{2}(-f_c - f_b  + i_c + i_b))\\
+    b &= \frac{1}{2}(-f_c - 3f_b + i_c + i_b))\\
+    c + b &= -f_c - 2f_b + i_c + 2i_b
+\end{align*}
+Using the typical optimization with derivatives isn't going to help us here, because the function is linear with respect to both $f_c$ and $f_b$.
+Instead we can use the constraint that $c$, $b$, and $c + b$ must be natural numbers (in my definition, the natural numbers include 0).
+\begin{align*}
+    c &\in \mathbb{N} \\
+    -f_c - f_b + i_b + i_c &\in 2\mathbb{N}
+\end{align*}
+Since $i_b = i_c$, $i_b + i_c \in 2\mathbb{N}$
+\begin{align*}
+    -f_c - f_b &\in 2\mathbb{Z}\\
+    f_c + f_b &\in 2\mathbb{N}
+\end{align*}
+Thus, we can say that $f_c$ and $f_b$ have the same parity.
 \section{Using the final state of the vector to deduce the amount of drinks drunk}
 \par Since two empty bottles can get you a drink and a drink is worth \$2, then that means one bottle is worth \$1.
 Similarly since four bottle caps can get you a drink and a drink is worth \$2, then that means bottle cap is worth \$0.5.

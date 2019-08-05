@@ -250,7 +250,7 @@ This is because there's always a way to get to $(0, 0)$ if we choose to fall int
 
 We can describe the validity $v$ of transaction $c$ and $b$ using the following recursive function:
 \begin{align*}
-    v(c, b) &= v(c - 1, b) \times v(c, b - 1) \times \underbrace{(
+    v(c, b) &= (v(c - 1, b) + v(c, b - 1)) \times \underbrace{(
         \begin{bmatrix}
             -3 & 1\\
             1 & -1\\

@@ -13,13 +13,16 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\lstset{
+    breaklines=true
+}
 \section{Introduction to the hypothetical bartering system}
 \par You have \$10, and a beer is 2\$.
 Very quickly you can see that if you spend all 10\$, you will get 5 beers.
 Once you've drunken the 5 beers, you are left with 5 beer bottles and 5 caps.
 The store owner strikes you a deal.
 If you give him two empty bottles or four bottle caps, he'll give you a new bottle of beer.
-He is also kind enough to let you drink before you pay.
+He is also kind enough to let you drink before you pay, but you are not allowed to be in bottle or cap-debt.
 How many drinks you can get?
 \section{Naive solution}
 A naive solution would be to consider the worth of the beer itself.
@@ -124,7 +127,7 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
     \end{tikzpicture}
 \end{center}
 \section{Analysis of the graph}
-Since having either 1 bottle, or 3 caps is enough to do another transaction; we know from the context of the problem, that the final state must be one of the following points:
+Since having either 1 bottle, or 3 caps is enough to do another transaction, we know from the context of the problem, that the final state must be one of the following points:
 $$(0, 0)$$
 $$(0, 1)$$
 $$(0, 2)$$
@@ -135,7 +138,7 @@ You can also tell that you cannot get to $(0, 1)$, because that means you came f
 
 So already from this graph, you can tell that you will always end up with 2 caps left over (if we ignore the trivial case that you do not buy beer in the first place).
 \section{Algebraic Solution}
-Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the cap-based transactions, and $b$ be the bottle-based transaction.
+Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the number of cap-based transactions, and $b$ be the number of bottle-based transactions.
 \begin{align*}
     \vec{i}
     + c
@@ -184,31 +187,100 @@ Let $\vec{i}$ be the initial state, $\vec{f}$ be the final state, $c$ be the cap
     \end{bmatrix}
     (\vec{f} - \vec{i})\\
 \end{align*}
-The goal is to get as drunk as possible, which is reaching as many transactions as possible, thus we want to maximize $b + c$ with respect to the elements of $f$.
-The above matrix equation can be represented as the following set of equations.
+Initially we get the same amount of caps and bottles according to how many drinks $i$ that we start with.
 \begin{align*}
-    c &= \frac{1}{2}(-(f_c - i_c) - (f_b - i_b))\\
-    b &= \frac{1}{2}(-(f_c - i_c) - 3(f_b - i_b))\\
-    c + b &= \frac{1}{2}(-2(f_c - i_c) - 4(f_b - i_b))
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    \frac{1}{2}
+    \begin{bmatrix}
+        -1 &-1\\
+        -1 &-3
+    \end{bmatrix}
+    (\vec{f} - \vec{i})\\
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    (\vec{i} - \vec{f})\\
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    i
+    \begin{bmatrix}
+        1\\
+        1
+    \end{bmatrix}
+    -
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    \vec{f}\\
+    \begin{bmatrix}
+        c\\
+        b
+    \end{bmatrix}
+    &=
+    i
+    \begin{bmatrix}
+        1\\
+        2
+    \end{bmatrix}
+    -
+    \frac{1}{2}
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 3
+    \end{bmatrix}
+    \vec{f}
 \end{align*}
-Which can be simplified to:
+If we simply make $\vec{f} = \vec{0}$, then we don't reach a contradiction even though we know from looking at the graph that it's not possible.
+This is because there's always a way to get to $(0, 0)$ if we choose to fall into debt, but since that's against the rules, we have to make a check that there exists a way to reach $\vec{f}$.
+
+We can describe the validity $v$ of transaction $c$ and $b$ using the following recursive function:
 \begin{align*}
-    c &= \frac{1}{2}(-f_c - f_b  + i_c + i_b))\\
-    b &= \frac{1}{2}(-f_c - 3f_b + i_c + i_b))\\
-    c + b &= (-f_c - 2f_b + i_c + 2i_b)
+    v(c, b) &= (v(c - 1, b) + v(c, b - 1)) \times \underbrace{(
+        \begin{bmatrix}
+            -3 & 1\\
+            1 & -1\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            c\\
+            b
+        \end{bmatrix}
+        + \vec{i}
+        >
+        \vec{f}
+    )}_\text{1 if this is true, 0 if this is false}\\
+    v(0, 0) &= 1
 \end{align*}
-Using the typical optimization with derivatives isn't going to help us here, because the function is linear with respect to both $f_c$ and $f_b$.
-Instead we can use the constraint that $c$, $b$, and $c + b$ must be natural numbers (in my definition, the natural numbers include 0).
-\begin{align*}
-    c &\in \mathbb{N} \\
-    -f_c - f_b + i_b + i_c &\in 2\mathbb{N}
-\end{align*}
-Since $i_b = i_c$, $i_b + i_c \in 2\mathbb{N}$
-\begin{align*}
-    -f_c - f_b &\in 2\mathbb{Z}\\
-    f_c + f_b &\in 2\mathbb{N}
-\end{align*}
-Thus, we can say that $f_c$ and $f_b$ have the same parity.
+Notice above, I use + as OR and $\times$ as AND.
+
+If we brute force using a script:
+
+\lstinputlisting[language=python]{python/non-debt-transactions.py}
+
+Then we get the following result where the green dots represents the possible transactions:
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{python/debt.png}
+\end{center}
 \section{Using the final state of the vector to deduce the amount of drinks drunk}
 \par If we refer back to the naive solution, we concluded that beer itself is \$0.50.
 If we know what we have left over, we can deduce how much of our money was effectively turned into booze.

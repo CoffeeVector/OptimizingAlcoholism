@@ -38,7 +38,7 @@ The only way to successfully convert all of our bottles and caps into booze is i
 Which is impossible because there doesn't exist a transaction which takes a bottle and cap at the same time.
 
 Rather, it's still fun to see if we can predict exactly how much we are left with.
-\section{Modeling amount of caps and bottles}
+\section{Modeling caps and bottles}
 Suppose a vector which represents caps a bottles:
 \[
     \begin{bmatrix}
@@ -73,7 +73,8 @@ We will represent this operation as the addition of the following vector;
         -3\\
     \end{bmatrix}
 \]
-\par These two operations can be represented geometrically as a translation of a point on a 2 dimensional Cartesian plane.
+\section{Solution from special case}
+\par The two operations can be represented geometrically as a translation of a point on a 2 dimensional Cartesian plane.
 For example, if we start with 5 empty bottles and 5 empty caps, we can trace the motion of the point as following.
 \begin{center}
     \begin{tikzpicture}
@@ -127,7 +128,6 @@ For example, if we start with 5 empty bottles and 5 empty caps, we can trace the
         \end{axis}
     \end{tikzpicture}
 \end{center}
-\section{Analysis of the graph}
 Since having either 1 bottle, or 3 caps is enough to do another transaction, we know from the context of the problem, that the final state must be one of the following points:
 $$(0, 0)$$
 $$(0, 1)$$
